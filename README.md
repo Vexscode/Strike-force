@@ -1,2 +1,0 @@
-# Strike-force
-my games
