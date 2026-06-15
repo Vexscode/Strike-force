@@ -152,9 +152,16 @@ document.addEventListener('keydown',e=>{
   if(e.code==='KeyR')startReload();
   if(e.code==='KeyE')throwGrenade();
   if(e.code==='KeyF')meleeAttack();
-  if(e.code==='Digit1')switchWeapon(0);
-  if(e.code==='Digit2')switchWeapon(1);
-  if(e.code==='Digit3')switchWeapon(2);
+  if(e.code==='Digit1'){if(gameState==='shop')buyShopItem(0);else switchWeapon(0);}
+  if(e.code==='Digit2'){if(gameState==='shop')buyShopItem(1);else switchWeapon(1);}
+  if(e.code==='Digit3'){if(gameState==='shop')buyShopItem(2);else switchWeapon(2);}
+  if(e.code==='Digit4'&&gameState==='shop')buyShopItem(3);
+  if(e.code==='Digit5'&&gameState==='shop')buyShopItem(4);
+  if(e.code==='Digit6'&&gameState==='shop')buyShopItem(5);
+  if(e.code==='Digit7'&&gameState==='shop')buyShopItem(6);
+  if(e.code==='Digit8'&&gameState==='shop')buyShopItem(7);
+  if(e.code==='Digit9'&&gameState==='shop')buyShopItem(8);
+  if(e.code==='Digit0'&&gameState==='shop')buyShopItem(9);
   if(gameState==='shop'&&(e.code==='KeyC'||e.code==='Escape'))closeShop();
 });
 document.addEventListener('keyup',e=>{K[e.code]=false;});
