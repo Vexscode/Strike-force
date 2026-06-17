@@ -1,0 +1,256 @@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<h2 class="sr-only">Guía interactiva de integración: cambio de variable y sustitución trigonométrica</h2>
+
+<style>
+.mtag{display:inline-block;font-size:11px;font-weight:500;padding:2px 10px;border-radius:100px;margin-bottom:6px}
+.t1{background:var(--color-background-info);color:var(--color-text-info)}
+.t2{background:var(--color-background-success);color:var(--color-text-success)}
+.mtitle{font-size:20px;font-weight:500;margin:0 0 1rem;color:var(--color-text-primary)}
+.icard{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:.875rem}
+.clabel{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);margin:0 0 .5rem}
+.frow{display:flex;flex-wrap:wrap;gap:8px;margin-top:.75rem}
+.fchip{background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 12px}
+.egrow{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.etag{font-size:11px;font-weight:500;padding:2px 10px;border-radius:100px;background:var(--color-background-info);color:var(--color-text-info);flex-shrink:0}
+.sbox{border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:2.5rem}
+.stabs{display:flex;border-bottom:.5px solid var(--color-border-tertiary)}
+.stab{flex:1;padding:10px 2px;font-size:13px;cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-secondary);border:none;border-right:.5px solid var(--color-border-tertiary)}
+.stab:last-child{border-right:none}
+.stab.active{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500}
+.sbody{padding:1.25rem;min-height:240px}
+.spanel.hidden{display:none}
+.stitle{font-size:15px;font-weight:500;margin:0 0 .75rem;color:var(--color-text-primary)}
+.sdesc{font-size:14px;color:var(--color-text-secondary);line-height:1.65;margin:0 0 .625rem}
+.mblock{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1.25rem;margin:.625rem 0;border-left:2px solid var(--color-border-tertiary);overflow-x:auto}
+.mblock.ok{border-left-color:var(--color-border-success)}
+.snav{display:flex;align-items:center;justify-content:space-between;padding:10px 1.25rem;border-top:.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.nbtn{padding:6px 16px;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;cursor:pointer}
+.nbtn:disabled{opacity:.3;cursor:default}
+.scnt{font-size:13px;color:var(--color-text-tertiary)}
+.divider{height:.5px;background:var(--color-border-tertiary);margin:0 0 2rem}
+.ctable{width:100%;border-collapse:collapse;font-size:13px;margin-top:.5rem}
+.ctable th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--color-text-tertiary);font-weight:500;padding:8px;border-bottom:.5px solid var(--color-border-secondary)}
+.ctable td{padding:10px 8px;border-bottom:.5px solid var(--color-border-tertiary);vertical-align:middle}
+.ctable tr:last-child td{border-bottom:none}
+.cpill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:100px}
+.cp1{background:var(--color-background-info);color:var(--color-text-info)}
+.cp2{background:var(--color-background-success);color:var(--color-text-success)}
+.cp3{background:var(--color-background-warning);color:var(--color-text-warning)}
+.katex-display{margin:.3em 0!important}
+</style>
+
+<div style="padding:1rem 0 .5rem">
+  <span class="mtag t1">Método 1</span>
+  <p class="mtitle">Integración por cambio de variable</p>
+
+  <div class="icard">
+    <p class="clabel">¿Cuándo usarlo?</p>
+    <p style="font-size:14px;color:var(--color-text-primary);margin:0;line-height:1.65">Cuando el integrando contiene una <strong>función compuesta</strong> (una función dentro de otra) y al derivar la función interior obtienes algo que también aparece en la integral. La señal: hay algo "adentro" de una función, y al derivarlo obtienes lo que hay "afuera".</p>
+  </div>
+
+  <div class="icard">
+    <p class="clabel">Cómo funciona</p>
+    <p style="font-size:14px;color:var(--color-text-primary);margin:0 0 .625rem;line-height:1.6">Llamas <span data-ki="u"></span> a la función interior, calculas <span data-ki="du"></span>, y reescribes toda la integral en términos de <span data-ki="u"></span>. La integral se simplifica, la resuelves, y vuelves a <span data-ki="x"></span>.</p>
+    <div class="frow">
+      <div class="fchip"><span data-ki="u = g(x)"></span></div>
+      <div class="fchip"><span data-ki="du = g'(x)\,dx"></span></div>
+    </div>
+    <div class="mblock" style="margin-top:.75rem">
+      <div data-kd="\int f(g(x))\cdot g'(x)\,dx \;=\; \int f(u)\,du"></div>
+    </div>
+    <p style="font-size:12px;color:var(--color-text-tertiary);margin:6px 0 0">Pasos: 1) definir u → 2) calcular du → 3) sustituir → 4) integrar → 5) volver a x</p>
+  </div>
+
+  <div class="egrow">
+    <span class="etag">Ejemplo</span>
+    <div><span data-ki="\displaystyle\int 2x\cos(x^2)\,dx"></span></div>
+  </div>
+
+  <div class="sbox">
+    <div class="stabs" id="tabs1">
+      <button class="stab active" onclick="goTo('s1',0)">Paso 1</button>
+      <button class="stab" onclick="goTo('s1',1)">Paso 2</button>
+      <button class="stab" onclick="goTo('s1',2)">Paso 3</button>
+      <button class="stab" onclick="goTo('s1',3)">Paso 4</button>
+      <button class="stab" onclick="goTo('s1',4)">Paso 5</button>
+    </div>
+    <div class="sbody" id="s1">
+
+      <div class="spanel" id="s1-0">
+        <p class="stitle">Identificar la sustitución</p>
+        <p class="sdesc">Miro el integrando: tengo <span data-ki="\cos(x^2)"></span>. El argumento del coseno es <span data-ki="x^2"></span>, una función interior. La elijo como <span data-ki="u"></span>:</p>
+        <div class="mblock"><div data-kd="u = x^2"></div></div>
+        <p class="sdesc">Criterio general: siempre elijo como <span data-ki="u"></span> la expresión que está "adentro" de la función más exterior. Ese es tu candidato.</p>
+      </div>
+
+      <div class="spanel" id="s1-1">
+        <p class="stitle">Calcular du</p>
+        <p class="sdesc">Derivo <span data-ki="u = x^2"></span> respecto a <span data-ki="x"></span>:</p>
+        <div class="mblock"><div data-kd="\frac{du}{dx} = 2x \quad\Longrightarrow\quad du = 2x\,dx"></div></div>
+        <p class="sdesc">Verifico: ¿aparece <span data-ki="2x\,dx"></span> en el integrando original? <strong>Sí está</strong>. Esto confirma que la sustitución es correcta y se cancelará perfectamente.</p>
+      </div>
+
+      <div class="spanel" id="s1-2">
+        <p class="stitle">Sustituir todo</p>
+        <p class="sdesc">Reemplazo <span data-ki="x^2 \to u"></span> dentro del coseno, y <span data-ki="2x\,dx \to du"></span>:</p>
+        <div class="mblock"><div data-kd="\int 2x\cos(x^2)\,dx \;=\; \int \cos(u)\,du"></div></div>
+        <p class="sdesc">La integral quedó completamente en términos de <span data-ki="u"></span>. No hay ninguna <span data-ki="x"></span>. Ahora es directamente integrable.</p>
+      </div>
+
+      <div class="spanel" id="s1-3">
+        <p class="stitle">Integrar en u</p>
+        <p class="sdesc">Integral estándar, la resuelvo de memoria:</p>
+        <div class="mblock"><div data-kd="\int \cos(u)\,du \;=\; \sin(u) + C"></div></div>
+        <p class="sdesc">La antiderivada de <span data-ki="\cos(u)"></span> es <span data-ki="\sin(u)"></span>. Simple y directo.</p>
+      </div>
+
+      <div class="spanel" id="s1-4">
+        <p class="stitle">Volver a x</p>
+        <p class="sdesc">La respuesta final debe estar en <span data-ki="x"></span>, no en <span data-ki="u"></span>. Como <span data-ki="u = x^2"></span>, reemplazo:</p>
+        <div class="mblock ok"><div data-kd="\boxed{\;\int 2x\cos(x^2)\,dx \;=\; \sin(x^2) + C\;}"></div></div>
+        <p style="font-size:12px;color:var(--color-text-tertiary);margin:.5rem 0 0">Verificación: <span data-ki="\tfrac{d}{dx}\sin(x^2) = \cos(x^2)\cdot 2x"></span> ✓</p>
+      </div>
+
+    </div>
+    <div class="snav">
+      <button class="nbtn" id="s1-prev" onclick="shift('s1',-1)">← Anterior</button>
+      <span class="scnt" id="s1-cnt">Paso 1 de 5</span>
+      <button class="nbtn" id="s1-next" onclick="shift('s1',1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div>
+  <span class="mtag t2">Método 2</span>
+  <p class="mtitle">Sustitución trigonométrica</p>
+
+  <div class="icard">
+    <p class="clabel">¿Cuándo usarlo?</p>
+    <p style="font-size:14px;color:var(--color-text-primary);margin:0;line-height:1.65">Cuando el integrando tiene una raíz cuadrada de la forma <span data-ki="a^2-x^2"></span>, <span data-ki="a^2+x^2"></span>, o <span data-ki="x^2-a^2"></span>. La idea: reemplazar <span data-ki="x"></span> por una función trigonométrica para que la identidad pitagórica correspondiente elimine la raíz.</p>
+  </div>
+
+  <div class="icard">
+    <p class="clabel">Tabla de los tres casos</p>
+    <table class="ctable">
+      <thead>
+        <tr>
+          <th>Si ves...</th>
+          <th>Sustitución</th>
+          <th>Identidad que elimina la raíz</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span data-ki="\sqrt{a^2-x^2}"></span></td>
+          <td><span class="cpill cp1"><span data-ki="x=a\sin\theta"></span></span></td>
+          <td><span data-ki="1-\sin^2\theta=\cos^2\theta"></span></td>
+        </tr>
+        <tr>
+          <td><span data-ki="\sqrt{a^2+x^2}"></span></td>
+          <td><span class="cpill cp2"><span data-ki="x=a\tan\theta"></span></span></td>
+          <td><span data-ki="1+\tan^2\theta=\sec^2\theta"></span></td>
+        </tr>
+        <tr>
+          <td><span data-ki="\sqrt{x^2-a^2}"></span></td>
+          <td><span class="cpill cp3"><span data-ki="x=a\sec\theta"></span></span></td>
+          <td><span data-ki="\sec^2\theta-1=\tan^2\theta"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--color-text-tertiary);margin:.625rem 0 0">El ejemplo de abajo usa el primer caso.</p>
+  </div>
+
+  <div class="egrow">
+    <span class="etag">Ejemplo</span>
+    <div><span data-ki="\displaystyle\int \frac{1}{\sqrt{4-x^2}}\,dx"></span></div>
+  </div>
+
+  <div class="sbox">
+    <div class="stabs" id="tabs2">
+      <button class="stab active" onclick="goTo('s2',0)">Paso 1</button>
+      <button class="stab" onclick="goTo('s2',1)">Paso 2</button>
+      <button class="stab" onclick="goTo('s2',2)">Paso 3</button>
+      <button class="stab" onclick="goTo('s2',3)">Paso 4</button>
+      <button class="stab" onclick="goTo('s2',4)">Paso 5</button>
+    </div>
+    <div class="sbody" id="s2">
+
+      <div class="spanel" id="s2-0">
+        <p class="stitle">Identificar el caso</p>
+        <p class="sdesc">Tengo <span data-ki="\sqrt{4-x^2}"></span>. Lo reescribo para reconocer la forma:</p>
+        <div class="mblock"><div data-kd="\sqrt{4-x^2} = \sqrt{2^2-x^2}</div></div>
+        <p class="sdesc">Es la forma <span data-ki="\sqrt{a^2-x^2}"></span> con <span data-ki="a=2"></span>. Según la tabla, uso:</p>
+        <div class="mblock ok"><div data-kd="x = 2\sin\theta"></div></div>
+      </div>
+
+      <div class="spanel" id="s2-1">
+        <p class="stitle">Calcular dx y simplificar la raíz</p>
+        <p class="sdesc">Derivo <span data-ki="x=2\sin\theta"></span> para obtener <span data-ki="dx"></span>:</p>
+        <div class="mblock"><div data-kd="dx = 2\cos\theta\,d\theta"></div></div>
+        <p class="sdesc">Sustituyo en la raíz y aplico la identidad <span data-ki="1-\sin^2\theta=\cos^2\theta"></span>:</p>
+        <div class="mblock ok"><div data-kd="\sqrt{4-x^2}=\sqrt{4-4\sin^2\theta}=\sqrt{4(1-\sin^2\theta)}=\sqrt{4\cos^2\theta}=2\cos\theta"></div></div>
+        <p class="sdesc">¡La raíz desapareció! Eso es exactamente el objetivo de este método.</p>
+      </div>
+
+      <div class="spanel" id="s2-2">
+        <p class="stitle">Sustituir todo en la integral</p>
+        <p class="sdesc">Reemplazo el denominador (<span data-ki="\sqrt{4-x^2}\to 2\cos\theta"></span>) y <span data-ki="dx\to 2\cos\theta\,d\theta"></span>:</p>
+        <div class="mblock"><div data-kd="\int\frac{1}{\sqrt{4-x^2}}\,dx = \int\frac{1}{2\cos\theta}\cdot 2\cos\theta\,d\theta"></div></div>
+        <div class="mblock ok"><div data-kd="=\int\frac{2\cos\theta}{2\cos\theta}\,d\theta = \int 1\,d\theta = \int d\theta"></div></div>
+        <p class="sdesc">Todo se canceló. Pasé de una integral con raíz a simplemente <span data-ki="\int d\theta"></span>.</p>
+      </div>
+
+      <div class="spanel" id="s2-3">
+        <p class="stitle">Integrar</p>
+        <p class="sdesc">La integral se redujo a la más simple posible:</p>
+        <div class="mblock"><div data-kd="\int d\theta = \theta + C"></div></div>
+        <p class="sdesc">Solo queda expresar <span data-ki="\theta"></span> en términos de <span data-ki="x"></span>.</p>
+      </div>
+
+      <div class="spanel" id="s2-4">
+        <p class="stitle">Volver a x</p>
+        <p class="sdesc">Como usé <span data-ki="x=2\sin\theta"></span>, despejo <span data-ki="\theta"></span>:</p>
+        <div class="mblock"><div data-kd="\sin\theta=\frac{x}{2} \quad\Longrightarrow\quad \theta=\arcsin\!\left(\frac{x}{2}\right)"></div></div>
+        <div class="mblock ok"><div data-kd="\boxed{\;\int\frac{dx}{\sqrt{4-x^2}}=\arcsin\!\left(\frac{x}{2}\right)+C\;}"></div></div>
+      </div>
+
+    </div>
+    <div class="snav">
+      <button class="nbtn" id="s2-prev" onclick="shift('s2',-1)">← Anterior</button>
+      <span class="scnt" id="s2-cnt">Paso 1 de 5</span>
+      <button class="nbtn" id="s2-next" onclick="shift('s2',1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script>
+document.querySelectorAll('[data-ki]').forEach(el=>{
+  try{katex.render(el.dataset.ki,el,{throwOnError:false})}catch(e){}
+});
+document.querySelectorAll('[data-kd]').forEach(el=>{
+  try{katex.render(el.dataset.kd,el,{throwOnError:false,displayMode:true})}catch(e){}
+});
+
+const state={s1:0,s2:0},total={s1:5,s2:5};
+
+function render(id){
+  const n=state[id],t=total[id];
+  for(let i=0;i<t;i++){
+    const p=document.getElementById(`${id}-${i}`);
+    if(p)p.classList.toggle('hidden',i!==n);
+  }
+  const num=id[1];
+  document.querySelectorAll(`#tabs${num} .stab`).forEach((b,i)=>b.classList.toggle('active',i===n));
+  document.getElementById(`${id}-cnt`).textContent=`Paso ${n+1} de ${t}`;
+  document.getElementById(`${id}-prev`).disabled=n===0;
+  document.getElementById(`${id}-next`).disabled=n===t-1;
+}
+function goTo(id,n){state[id]=n;render(id);}
+function shift(id,d){state[id]=Math.max(0,Math.min(total[id]-1,state[id]+d));render(id);}
+render('s1');render('s2');
+</script>
